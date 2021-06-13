@@ -1,0 +1,77 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:stable
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build code base for candidate
+          command: sh setup.sh build
+
+  validate:
+    machine:
+      image: circleci/classic:201710-01    # pins image to specific version
+
+    working_directory: ~/repo
+
+    steps:
+      - run:
+          name: Install dojo
+          command: |
+            DOJO_VERSION=0.6.2
+            wget -O dojo https://github.com/kudulab/dojo/releases/download/${DOJO_VERSION}/dojo_linux_amd64
+            chmod +x dojo
+            sudo mv dojo /usr/local/bin
+
+      - checkout
+
+      - run:
+          name: Create second checkout
+          command: |
+            shopt -s extglob
+            mkdir -p second-infra
+            cp -r !(second-infra) second-infra
+
+      - run:
+          name: Build full stack 1
+          command: |
+            eval $(./recops.sh setup_user)
+            make deploy_interview
+
+      - run:
+          name: Build full stack 2
+          command: |
+            cd second-infra
+            eval $(./recops.sh setup_user)
+            make deploy_interview
+
+      - run:
+          name: Destroy full stack 1
+          command: |
+            make destroy_interview
+          when: always
+
+      - run:
+          name: Destroy full stack 2
+          command: |
+            cd second-infra
+            make destroy_interview
+          when: always
+
+
+workflows:
+  version: 2
+  infra-hiring:
+    jobs:
+      - build-approval:
+          type: approval
+      - build:
+          requires:
+            - build-approval
+
+  # Ensures that code is in working state - it can be deployed and destroyed
+  infra-hiring-validate:
+    jobs:
+      - validate
