@@ -1,4 +1,5 @@
 #Main.tf variables
+# Its recommended to mention type
 
 variable "aws_region" {
   description = "AWS region"
@@ -56,4 +57,17 @@ variable "availibility_hours" {
 
 variable "region_name" {
   description = "Location in which the resource is hosted"
+}
+
+
+# S3 Encryption
+variable "my_bucket" {
+  description = "Test bucket name"
+  default = "mybucket-1-2-3-4-5-6-7-8-9"
+}
+
+
+#Alarms 
+variable "alarms_email" {
+   description = "Alarms email"
 }

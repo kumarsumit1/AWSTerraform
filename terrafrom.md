@@ -1,3 +1,10 @@
+# IAC 
+
+Ansible vs Terraform 
+https://www.youtube.com/watch?v=rx4Uh3jv1cA
+
+
+
 
 https://www.cloudcraft.co/
 
@@ -24,7 +31,7 @@ $ terraform graph tfplan
 
 
 
-#console
+# console
 
 plan to file 
 
@@ -158,6 +165,15 @@ https://github.com/terraform-linters/tflint
 
 Steps to automate 
 https://www.youtube.com/watch?v=PbS_lQQ1dnE
+
+
+#Terraform cost estimate 
+
+https://www.infracost.io/
+
+
+
+
 
 
 

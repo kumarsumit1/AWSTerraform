@@ -1,13 +1,17 @@
-#For region
-provider "aws" {
-  region     = var.aws_region
-}
-
 #For base version and TF state file
 terraform {
   required_version = "0.12.20"
-#   backend "s3" {  }
-    backend "local" {}
+  required_providers {
+    aws = "> 3.0"
+  }
+  #   backend "s3" {  }
+  backend "local" {}
+}
+
+
+#For region
+provider "aws" {
+  region = var.aws_region
 }
 
 

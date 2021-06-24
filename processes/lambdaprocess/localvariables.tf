@@ -1,5 +1,5 @@
 locals {
-  common_tags = {
+  default_tags = {
     "Resource:department" = var.resource_department
     "Resource:team"       = var.resource_team
     "Resource:costCenter" = var.resource_cost_center
