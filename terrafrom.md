@@ -113,6 +113,9 @@ terraform state rm  aws_instance.myinstace #unmanage a resource, delete it from 
 
 terraform import aws_instance.new_ec2_instance i-abcd1234 #import EC2 instance with id i-abcd1234 into the Terraform resource named “new_ec2_instance” of type “aws_instance”
 terraform import 'aws_instance.new_ec2_instance[0]' i-abcd1234 #same as above, imports a real-world resource into an instance of Terraform resource
+terraform import -var-file=../var/plan_dev.tfvars aws_s3_bucket.mybucket mybucket-1-2-3-4-5-6-7-8-9 # import resource with variables
+https://alite-international.com/how-to-successfully-import-aws-resources-with-terraform/
+
 terraform output #list all outputs as stated in code
 terraform output instance_public_ip # list out a specific declared output
 terraform output -json #list all outputs in JSON format

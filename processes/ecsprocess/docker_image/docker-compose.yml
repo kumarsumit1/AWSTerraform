@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  ecs_dev:
+    build: 
+      context: .
+      args: 
+        BUCKET_NAME: test_bucket
+        MYSQL_PASSWORD: test_password
+    image: ecs_dev
+    container_name: ecs_dev
+    hostname: ecs_dev    
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1  
+    networks:
+      - skynet  
+
+networks:
+  skynet:
+    driver: bridge      
