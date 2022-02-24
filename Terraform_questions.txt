@@ -1,0 +1,314 @@
+Matthew is implementing Terraform in production. He realized that every region in AWS has a different AMI ID for CentOS 7 OS. 
+He wants to create a Terraform code that works for all the regions. 
+He has already created the EC2 resource but needs to figure on how he can deal with different AMI IDs based on regions? 
+What is the best approach? 
+
+
+James is having an issue with his Terraform code. He wants to enable debugging. How can he do that?
+
+
+
+Which of the following command will export the debugging logs to a file named /tmp/terraform-crash.log?
+
+
+Which of the following command will format your terraform code?
+
+Which feature allows multiple state files for a single configuration file depending upon the environment?
+
+
+In which folder are the custom workspace state files are stored?
+
+
+Refer to the following Terraform Code:
+
+    variable "elb_names" {
+      type = list
+      default = ["dev-loadbalancer", "stage-loadbalanacer","prod-loadbalancer"]
+    }
+     
+    resource "aws_iam_user" "lb" {
+      name = var.elb_names[count.index]
+      count = 2
+      path = "/system/"
+    }
+
+Base on this code, which IAM user name will not be created?
+
+
+Refer to the following terraform code
+
+    variable "tags" {
+      type = list
+      default = ["firstec2","secondec2","thirdec2"]
+    }
+     
+      tags = {
+         Name = element(var.tags,count.index)
+       }
+
+If count.index is set to 1, which of the following values will be used?
+
+
+
+
+Andrew wants to automatically extract the contents of the id_rsa.pub file present in the local directory and use it for creating EC2 instance? 
+Which function can he use?
+
+
+What are the benefits of Providers in terraform
+
+Is provider configuration block is mandatory in every configuration?
+
+Provisioner block is within the resource configuration block in Terraform?
+
+There can be multiple provider blocks for AWS within a single terraform configuration file?
+
+
+Q: After creating an EC2 instance, Yash wants to automatically install certain software packages like Nginx inside that EC2 instance. What is the way to achieve it?
+
+Ans : Remote provisioner
+
+Q: You want to upgrade the provider version to the latest acceptable one. What is the approach to do it?
+
+Ans : terraform init -upgrade
+
+Q : You run a local-exec provisioner in a null resource called null_resource.run_script and realize that you need to rerun the script. 
+Which of the following commands would you use first?
+
+
+Q: What is the provisioner that invokes a process on machine that runs terraform?
+
+Ans : local-exec 
+
+
+Q: What is the ideal way to hide the output value in the CLI after terraform apply?
+
+Here is a sample code:
+
+     output "password" {
+       value = myvar.password
+     }
+	 
+	 
+Which of the following state management command allow you to retrieve a list of resources that are part of the state file?
+
+
+
+Q : Matthew has referred to a child module that has the following code. Can Matthew override the instance_type from t2.micro to t2.large form his code without touching the module?
+
+    resource "aws_instance" "myec2" {
+       ami = "ami-082b5a644766e0e6f"
+       instance_type = "t2.micro
+    }
+
+Ans : No
+
+Q : The Terraform module installer supports installation from a number of different source types, which of these is not a supported source type? 
+
+Ans : FTP server 
+
+Q : The lookup function is used to refer to which data type?
+
+Ans: 
+
+Q : There is a requirement to create a security group for the database servers. There is a list created that has more than 50 IP addresses that needs to be added to the security group rule.
+
+What functionality in terraform can be used to iterate over a list of required IP addresses to add to the new security group?
+
+Ans : dynamic block 
+
+Q : Following is a sample Terraform configuration file
+
+    variable "number" { 
+    default = 3
+    }
+
+You also have a defined the following environment variables in your shell: TF_number=6, TF_VAR_number=9.
+
+You also have a terraform.tfvars file with the following contents
+
+number = 7
+
+When you run the following apply command, what is the value assigned to the number variable?
+
+terraform apply -var number=4 
+
+Ans :
+
+Q : Which of the following is not a valid variable name in Terraform?
+
+Ans : The name of a variable can be any valid identifier except the following: 
+    source, version, providers, count, for_each, lifecycle, depends_on, locals.
+
+     Todo : check if name of variable can be variable ?
+	 
+Q: Terraform allows users to create custom user-defined functions?
+
+Ans : no 
+
+Q: Is the terraform destroy command the only way to destroy resources?
+
+Ans: no
+
+Q:Due to some issues, the state file is in the locked state and users are not able to perform terraform apply commands. 
+What actions can be taken to overcome this?
+
+Ans : https://www.terraform.io/docs/commands/force-unlock.html
+
+Q: All the terraform standard backends support state storage locking?
+
+Ans: no 
+
+Q : Which approach can be used to manually write the state file in terraform?
+
+Ans : You can also manually write state with terraform state push. This is extremely dangerous and should be avoided if possible. 
+This will overwrite the remote state. 
+This can be used to do manual fixups if necessary.
+
+
+Q: Terraform backend can only be migrated if no resources are created
+
+Ans : False
+
+Q : Which of the following is not a supported backend type?
+
+Ans : github
+
+Q: There are 5 EBS volumes that are being created. Matthew needs to fetch the EBS volume ID associated with all of these volumes. 
+What is the easiest way to achieve this?
+
+Ans : [*]
+
+Q: By running command terraform refresh what will not be processed?
+
+Ans : 
+
+
+Q: Sentinel is ___ ?
+
+Ans : Proactive service 
+
+Q: What is the use of Sentinel policy as a code in Terraform Enterprise provides what security posture?
+
+Ans : proactive governance 
+
+Q : Supratik has joined a Security Architect in Enterprise Corp. He has mandated that all the Terraform configuration that creates an S3 bucket must have encryption feature enabled. What is the best way to achieve it?
+
+Ans : Sentinel policy
+
+Q : When sentinel runs in terraform enterprise?
+
+Ans : Before apply 
+
+
+Q : If resources are deleted manually but were created through terraform, what will happen if terraform apply?
+
+Ans : resource will be created again
+
+Q: terraform refresh will update the state file?
+
+Ans : Yes
+
+Q : What is the system in which terraform plan and apply is happening remotely but the output is streamed locally called?
+
+Ans : Remote Backend
+
+Q : James has created a variable and has explicitly defined the type as a string. Following is the snippet:
+
+variable "myvar" {
+
+  type = string
+
+}
+
+Which of the following value will be accepted?
+
+Ans : Terraform automatically converts number and bool values to strings when needed. hence '2' or 2 both will be accepted 
+
+Q: Alice has created 10 different AWS resources from a single terraform configuration file named large.tf
+
+Due to some manual modification to one of the EC2 instances, she wants to destroy and recreate the EC2 instance.
+
+What is the ideal way to achieve it?
+
+Ans : taint 
+
+Q: When running terraform taint, terraform will immediately delete and recreate it?
+
+Ans : false
+
+
+Q : What of these function is NOT part of string functions in terraform?
+
+Ans : Slice
+
+Q: Which service among these provides the direct capability of locking the state file for the remote backend?
+
+Ans : Consul
+
+Q:Will the below action be blocked when the Terraform state file is locked?
+
+terraform validate 
+
+Ans : False
+
+Q : Which configuration consistency errors does terraform validate report?
+
+Ans : declaring resource identifier twice 
+
+Q: How do you create DOT file?
+
+Ans : terraform graph
+
+Q: List of operations allowed when terraform state gets locked 
+
+Ans : 
+Allowed :
+terraform state list
+
+Not Allowed : apply , destroy 
+
+Q: Terraform state file stores which type of dependency information?
+
+Ans : both implicit and explicit dependency 
+
+Q: Following is the terraform configuration file:
+
+    resource "aws_instance" "myec2" { 
+      instance_type = "t2.small"
+      ami           = "ami-12345"
+      count          = 4 
+    }
+
+Among these, what does the terraform resource address aws_instance.myec2 point to?
+
+And : It refers to all the instances further indexing is required with a base starting from 0
+
+Q: Is it necessary to have a state file for the terraform functions to work?
+
+Ans : yes , true
+
+Q: Developers in Medium Corp are facing a few issues while writing complex expressions that involve interpolation. They have to run the terraform plan every time and check whether there are errors, and also verify the terraform apply to print value as a temporary output for the purpose of debugging
+
+What can be achieved to avoid this?
+
+Ans : Use terraform console, and do the transformation
+
+Q: After executing a terraform apply, you notice that a resource has a tilde (~) next to it. What does this infer?
+
+Ans : update 
+
+
+Q : Terraform makes use of parallelism to reduce the time it takes for provisioning of resources. What is the number of concurrent operations that runs while provisioning resources?
+
+And : -parallelism=n - Limit the number of concurrent operation as Terraform walks the graph. Defaults to 10.
+
+Q : Can we delete the default workspace in Terraform?
+
+Ans : Terraform starts with a single workspace named "default". 
+This workspace is special both because it is the default and also because it cannot ever be deleted
+
+
+Q : What is the authentication type required to manage Terraform Cloud related operations from CLI?
+
+Ans : API Token -> https://www.terraform.io/docs/cloud/api/index.html

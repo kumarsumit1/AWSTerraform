@@ -61,12 +61,13 @@ https://acloudguru.com/blog/engineering/the-ultimate-terraform-cheatsheet
 terraform -install-autocomplete 
 ```
 
-##Format and Validate Terraform code
+## Format and Validate Terraform code
 
-terraform fmt #format code per HCL canonical standard
-terraform validate #validate code for syntax
+```
+terraform fmt #format code per HCL canonical standard  
+terraform validate #validate code for syntax  
 terraform validate -backend=false #validate code skip backend validation
-
+```
 
 ## Initialize your Terraform working directory
 
@@ -254,11 +255,10 @@ variable "mymap" {
 
 Important: For example, if we need to access the value of Key1 (Value1) we can using the next example `var.mymap["Key1"]`
 
-Note: Remember, we use [ ] for list, and we use { } for maps
+Note: Remember, we use `[ ]` for list, and we use `{ }` for maps
 
 #### INPUT VARIABLES
 
-Is useful to permit the user to manually set a variable when we run Terraform plan, we can add a "description" and when we run a plan shows a message
 
 It is useful to permit the user to set a variable manually when we run Terraform plan, we can add a "description," and when we run a plan, it shows a message
 
@@ -303,7 +303,7 @@ vpcid = vpc-099d9099f5faec2d9
 
 A local value assigns a name to an [expression](https://www.terraform.io/docs/configuration/expressions.html), allowing it to be used multiple times within a module without repeating it.
 
-Comparing modules to functions in a traditional programming language: if [input variables](https://www.terraform.io/docs/configuration/variables.html) are analogous to function arguments and [outputs values](https://www.terraform.io/docs/configuration/outputs.html) are analogous to function return values, then *local values* are comparable to a function's local temporary symbols.
+Comparing modules to functions in a traditional programming language: if [input variables](https://www.terraform.io/docs/configuration/variables.html) are analogous to function arguments and [outputs values](https://www.terraform.io/docs/configuration/outputs.html) are analogous to function return values, then *local values* are comparable to a function's local temporary symbols/constants.
 
 Note: For brevity, local values are often referred to as just "locals" when the meaning is clear from context.
 
@@ -359,7 +359,7 @@ This is for example using a file called `dev.auto.tfvars` (is the next file that
 
 #### MULTIPLE VALUE FILES
 
-We can create a specified `*.tvars` file and load for example with `terraform plan`, this is very useful to settings variables for different environments.
+We can create a specified `*.tfvars` file and load for example with `terraform plan`, this is very useful to settings variables for different environments.
 
 ```
 terraform plan -var-file=prod.tfvars
@@ -371,7 +371,7 @@ terraform plan -var-file=prod.tfvars
 -   Any -var and -var-file options on the command line, in order they are provided. (This includes variables set by a Terraform Cloud workspace.)
 -   Any *.auto.tfvars or *.auto.tfvars.json files, processed in lexical order of their filenames.
 -   The tfvars.jsonfile, if present. `terraform.tfvars.json`
--   The tfvarsfile, if present. `terraform.tfvars`
+-   The *.tfvars file, if present. `terraform.tfvars`
 -   Environment variables
 
 Note: there is no mention of .tf file declaration in there, this is because variables declared in .tf files are concatenated into a single entity consisting of your variables.tf your main.tf and your output.tf files before being processed by Terraform. Hence this declaration have highest precedence in order of application.
@@ -408,7 +408,7 @@ Link: <https://www.terraform.io/docs/configuration/terraform.html#specifying-a-r
 
 #### PROVIDERS
 
-A provider is responsible for understanding API interactions and exposing resources. If an API is available, you can create a provider. A provider user a plugin. In order to make a provider available on Terraform, we need to make a `terraform init`, this commands download any plugins we need for our providers. If for example we need to copy the plugin directory manually, we can do it, moving the files to `.terraform.d/plugins`
+A provider is responsible for understanding API interactions and exposing resources. If an API is available, you can create a provider. A provider uses a plugin. In order to make a provider available on Terraform, we need to make a `terraform init`, this commands download any plugins we need for our providers. If for example we need to copy the plugin directory manually, we can do it, moving the files to `.terraform.d/plugins`
 
 Note: Using `terraform providers` command we can view the specified version constraints for all providers used in the current configuration
 
@@ -436,7 +436,7 @@ When `terraform init` is re-run with providers already installed, it will use an
 
 #### MULTIPLE PROVIDER SETUP
 
-We can use for example multiple AWS providers with different regions, for this we need to create an `alias` and on the resource creation we need to specified the provider. For example
+We can use for example multiple AWS providers with different regions, for this we need to create an `alias` and on resource creation we need to mention the specified provider. For example
 
 ```
 provider "aws" {

@@ -43,7 +43,12 @@ https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html
 
 1. Configure Docker with AWS ECR credentials
 ```
-aws ecr get-login-password — region <account-region> | docker login — username AWS — password-stdin xxxxxx.dkr.ecr.<region>.amazonaws.com/<repo-name>
+aws ecr get-login-password --region <account-region> | docker login — username AWS — password-stdin xxxxxx.dkr.ecr.<region>.amazonaws.com/<repo-name>
+
+aws ecr get-login-password \
+        --region us-east-1 | docker login \
+        --username AWS \
+        --password-stdin <account-id>.dkr.ecr.us-east-1.amazonaws.com
 ex:
 aws ecr get-login-password — region us-east-1 | docker login — username AWS — password-stdin xxxxxx.dkr.ecr.us-east-1.amazonaws.com/my-website
 ```
@@ -54,7 +59,7 @@ Login Succeeded
 
 2. Pushing a Docker image to ECR
 ```
-ocker build -t <image-name>:<image-version> .
+docker build -t <image-name>:<image-version> .
 ex:
 docker build -t my-website:v1.0.0 .
 ```
